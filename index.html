@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Songkran 2026</title>
+    <title>Songkran PLK3 - 2026</title>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root { --gold: linear-gradient(0deg, #8a5a12, #fcf6ba); }
@@ -13,16 +13,22 @@
         .page { display: none; width: 100%; height: 100%; position: absolute; top:0; left:0; }
         .page.active { display: block; }
         .bg-img { width: 100%; height: 100%; object-fit: cover; position: absolute; z-index: 1; pointer-events: none; }
+        
+        /* ปุ่มมาตรฐาน หน้า 1 และ 3 */
         .btn-wrapper { position: absolute; bottom: 10%; width: 100%; display: flex; justify-content: center; z-index: 1000; }
         .btn-main { 
             background: var(--gold); padding: 18px; width: 85%; border-radius: 50px; 
             border: 2px solid #aa771c; font-size: 20px; font-weight: bold; cursor: pointer;
             box-shadow: 0 5px 15px rgba(0,0,0,0.4); touch-action: manipulation; color: #403010;
         }
+
+        /* ปุ่มหน้าที่ 2 ปรับเตี้ยลงเพื่อหลบข้อมูลด้านหลัง */
         #page2 .btn-wrapper { bottom: 3%; }
         #page2 .btn-main { padding: 12px; width: 75%; font-size: 18px; background: #001ba0; color: #fff; border-color: #fff; }
+
         .vdo-container { width: 100%; height: 100%; background: #000; display: flex; align-items: center; z-index: 50; }
         video { width: 100%; height: auto; }
+
         .bless-box { 
             position: absolute; bottom: 25%; width: 85%; left: 7.5%; background: rgba(255,255,255,0.95);
             padding: 20px; border-radius: 15px; border: 3px solid #bf953f; text-align: center; display: none; z-index: 1100;
@@ -41,10 +47,12 @@
         <img src="https://res.cloudinary.com/dl5s23mrx/image/upload/q_auto,f_auto/v1775722614/mainsog_j92c4e.png" class="bg-img">
         <div class="btn-wrapper"><button class="btn-main" onclick="changePage(2)">✓ กดเข้าร่วมพิธี</button></div>
     </div>
+
     <div id="page2" class="page">
         <img src="https://res.cloudinary.com/dl5s23mrx/image/upload/q_auto,f_auto/v1775722052/song2_jprtuy.png" class="bg-img">
         <div class="btn-wrapper"><button class="btn-main" onclick="startFlow()">เริ่มรดน้ำท่านแรก ></button></div>
     </div>
+
     <div id="page3" class="page">
         <div id="stillPhase" style="height:100%">
             <img id="bossPic" src="" class="bg-img">
@@ -62,16 +70,31 @@
 
 <script>
     const dataList = [
-        // 1. คนที่ 1
-        { i: 'https://res.cloudinary.com/dl5s23mrx/image/upload/q_auto,f_auto/v1775720980/person_11_ad0o6h.png', v: 'https://res.cloudinary.com/dl5s23mrx/video/upload/v1775726792/Thai_Water_Blessing_Ritual_Video_b2695o.mp4' },
-        // 2. คนที่ 2
-        { i: 'https://res.cloudinary.com/dl5s23mrx/image/upload/q_auto,f_auto/v1775641746/person_1_o3kfpl.png', v: 'https://res.cloudinary.com/dl5s23mrx/video/upload/v1775629825/Man_receiving_water_202604081322_cu8y3d.mp4' },
-        // 3. คนที่ 3
-        { i: 'https://res.cloudinary.com/dl5s23mrx/image/upload/q_auto,f_auto/v1775641746/person_3_fs9i4c.png', v: 'https://res.cloudinary.com/dl5s23mrx/video/upload/v1775632464/Woman_receiving_water_202604081413_dfhz7x.mp4' },
-        // 4. คนที่ 4
-        { i: 'https://res.cloudinary.com/dl5s23mrx/image/upload/q_auto,f_auto/v1775641746/person_5_a0tndp.png', v: 'https://res.cloudinary.com/dl5s23mrx/video/upload/v1775636857/Woman_receiving_water_202604081527_kabv6t.mp4' },
-        // 5. คนที่ 5
-        { i: 'https://res.cloudinary.com/dl5s23mrx/image/upload/q_auto,f_auto/v1775641748/person_4_dmpxwj.png', v: 'https://res.cloudinary.com/dl5s23mrx/video/upload/v1775631683/Man_receives_water__202604081358_vptyar.mp4' }
+        // ลำดับที่ 1
+        { 
+            i: 'https://res.cloudinary.com/dl5s23mrx/image/upload/q_auto,f_auto/v1775720980/person_11_ad0o6h.png', 
+            v: 'https://res.cloudinary.com/dl5s23mrx/video/upload/v1775726792/Thai_Water_Blessing_Ritual_Video_b2695o.mp4' 
+        },
+        // ลำดับที่ 2
+        { 
+            i: 'https://res.cloudinary.com/dl5s23mrx/image/upload/q_auto,f_auto/v1775641746/person_1_o3kfpl.png', 
+            v: 'https://res.cloudinary.com/dl5s23mrx/video/upload/v1775629825/Man_receiving_water_202604081322_cu8y3d.mp4' 
+        },
+        // ลำดับที่ 3
+        { 
+            i: 'https://res.cloudinary.com/dl5s23mrx/image/upload/q_auto,f_auto/v1775641746/person_3_fs9i4c.png', 
+            v: 'https://res.cloudinary.com/dl5s23mrx/video/upload/v1775632464/Woman_receiving_water_202604081413_dfhz7x.mp4' 
+        },
+        // ลำดับที่ 4
+        { 
+            i: 'https://res.cloudinary.com/dl5s23mrx/image/upload/q_auto,f_auto/v1775641746/person_5_a0tndp.png', 
+            v: 'https://res.cloudinary.com/dl5s23mrx/video/upload/v1775636857/Woman_receiving_water_202604081527_kabv6t.mp4' 
+        },
+        // ลำดับที่ 5
+        { 
+            i: 'https://res.cloudinary.com/dl5s23mrx/image/upload/q_auto,f_auto/v1775641748/person_4_dmpxwj.png', 
+            v: 'https://res.cloudinary.com/dl5s23mrx/video/upload/v1775631683/Man_receives_water__202604081358_vptyar.mp4' 
+        }
     ];
 
     const wishList = [
@@ -88,12 +111,21 @@
     ];
 
     let idx = 0;
+
     function changePage(n) {
-        if(n === 2) document.getElementById('bgMusic').play().catch(e => {});
+        if(n === 2) {
+            document.getElementById('bgMusic').play().catch(e => {});
+        }
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById('page' + n).classList.add('active');
     }
-    function startFlow() { idx = 0; updateContent(); changePage(3); }
+
+    function startFlow() {
+        idx = 0;
+        updateContent();
+        changePage(3);
+    }
+
     function updateContent() {
         document.getElementById('bossPic').src = dataList[idx].i;
         document.getElementById('vdoSrc').src = dataList[idx].v;
@@ -103,6 +135,7 @@
         document.getElementById('nextAction').style.display = 'none';
         document.getElementById('blessText').style.display = 'none';
     }
+
     function playVdo() {
         document.getElementById('stillPhase').style.display = 'none';
         document.getElementById('vdoPhase').style.display = 'flex';
@@ -116,8 +149,14 @@
             document.getElementById('btnNext').innerText = (idx === dataList.length - 1) ? "จบพิธี (กลับหน้าแรก)" : "ไปท่านถัดไป >";
         };
     }
+
     function nextStep() {
-        if(idx < dataList.length - 1) { idx++; updateContent(); } else { location.reload(); }
+        if(idx < dataList.length - 1) {
+            idx++;
+            updateContent();
+        } else {
+            location.reload();
+        }
     }
 </script>
 </body>
