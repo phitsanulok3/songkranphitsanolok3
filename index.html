@@ -9,28 +9,20 @@
         :root { --gold: linear-gradient(0deg, #8a5a12, #fcf6ba); }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { margin: 0; background: #000; font-family: 'Sarabun', sans-serif; width: 100vw; height: 100vh; overflow: hidden; }
-        
         .app-container { width: 100%; max-width: 500px; height: 100%; margin: auto; background: #fff; position: relative; overflow: hidden; }
         .page { display: none; width: 100%; height: 100%; position: absolute; top:0; left:0; }
         .page.active { display: block; }
-        
         .bg-img { width: 100%; height: 100%; object-fit: cover; position: absolute; z-index: 1; pointer-events: none; }
-        
-        /* สไตล์ปุ่มมาตรฐาน (สำหรับหน้า 1 และหน้า 3) */
         .btn-wrapper { position: absolute; bottom: 10%; width: 100%; display: flex; justify-content: center; z-index: 1000; }
         .btn-main { 
             background: var(--gold); padding: 18px; width: 85%; border-radius: 50px; 
             border: 2px solid #aa771c; font-size: 20px; font-weight: bold; cursor: pointer;
             box-shadow: 0 5px 15px rgba(0,0,0,0.4); touch-action: manipulation; color: #403010;
         }
-
-        /* ✅ สไตล์ปุ่มพิเศษสำหรับหน้าที่ 2 (เตี้ยลง ผอมลง และดันลงล่างสุด) */
         #page2 .btn-wrapper { bottom: 3%; }
         #page2 .btn-main { padding: 12px; width: 75%; font-size: 18px; background: #001ba0; color: #fff; border-color: #fff; }
-
         .vdo-container { width: 100%; height: 100%; background: #000; display: flex; align-items: center; z-index: 50; }
         video { width: 100%; height: auto; }
-
         .bless-box { 
             position: absolute; bottom: 25%; width: 85%; left: 7.5%; background: rgba(255,255,255,0.95);
             padding: 20px; border-radius: 15px; border: 3px solid #bf953f; text-align: center; display: none; z-index: 1100;
@@ -49,12 +41,10 @@
         <img src="https://res.cloudinary.com/dl5s23mrx/image/upload/q_auto,f_auto/v1775722614/mainsog_j92c4e.png" class="bg-img">
         <div class="btn-wrapper"><button class="btn-main" onclick="changePage(2)">✓ กดเข้าร่วมพิธี</button></div>
     </div>
-
     <div id="page2" class="page">
         <img src="https://res.cloudinary.com/dl5s23mrx/image/upload/q_auto,f_auto/v1775722052/song2_jprtuy.png" class="bg-img">
         <div class="btn-wrapper"><button class="btn-main" onclick="startFlow()">เริ่มรดน้ำท่านแรก ></button></div>
     </div>
-
     <div id="page3" class="page">
         <div id="stillPhase" style="height:100%">
             <img id="bossPic" src="" class="bg-img">
@@ -71,18 +61,17 @@
 </div>
 
 <script>
-    // ✅ อัปเดต dataList ใหม่ตามลำดับภาพและวิดีโอที่คุณแจ้งมาเป๊ะๆ
     const dataList = [
-        // ✅ คนที่ 1: ภาพคนใหม่ + วิดีโอใหม่ (Blessing Ritual)
+        // 1. ท่านใหม่ (ภาพ 11 + วิดีโอใหม่)
         { i: 'https://res.cloudinary.com/dl5s23mrx/image/upload/q_auto,f_auto/v1775720980/person_11_ad0o6h.png', v: 'https://res.cloudinary.com/dl5s23mrx/video/upload/v1775726792/Thai_Water_Blessing_Ritual_Video_b2695o.mp4' },
-        // ✅ คนที่ 2: ภาพคนเก่า (p1) + วิดีโอคนเก่า (v1)
+        // 2. คนที่ 2 (ภาพ 1 + วิดีโอ 1 เดิม)
         { i: 'https://res.cloudinary.com/dl5s23mrx/image/upload/q_auto,f_auto/v1775641746/person_1_o3kfpl.png', v: 'https://res.cloudinary.com/dl5s23mrx/video/upload/v1775629825/Man_receiving_water_202604081322_cu8y3d.mp4' },
-        // ✅ คนที่ 3: ภาพคนเก่า (p2) + วิดีโอคนเก่า (v2)
-        { i: 'https://res.cloudinary.com/dl5s23mrx/image/upload/q_auto,f_auto/v1775641747/person_2_nyg6ow.png', v: 'https://res.cloudinary.com/dl5s23mrx/video/upload/v1775629823/Man_receiving_water_202604081328_ojpwzo.mp4' },
-        // ✅ คนที่ 4: สลับลำดับ: ภาพคนเก่า (p5) + วิดีโอคนเก่า (v5)
-        { i: 'https://res.cloudinary.com/dl5s23mrx/image/upload/q_auto,f_auto/v1775641746/person_5_a0tndp.png', v: 'https://res.cloudinary.com/dl5s23mrx/video/upload/v1775631683/Man_receives_water__202604081358_vptyar.mp4' },
-        // ✅ คนที่ 5: สลับลำดับ: ภาพคนเก่า (p3) + วิดีโอคนเก่า (v3)
-        { i: 'https://res.cloudinary.com/dl5s23mrx/image/upload/q_auto,f_auto/v1775641746/person_3_fs9i4c.png', v: 'https://res.cloudinary.com/dl5s23mrx/video/upload/v1775632464/Woman_receiving_water_202604081413_dfhz7x.mp4' }
+        // 3. คนที่ 3 (ภาพ 3 เดิม + วิดีโอ 3 เดิม)
+        { i: 'https://res.cloudinary.com/dl5s23mrx/image/upload/q_auto,f_auto/v1775641746/person_3_fs9i4c.png', v: 'https://res.cloudinary.com/dl5s23mrx/video/upload/v1775632464/Woman_receiving_water_202604081413_dfhz7x.mp4' },
+        // 4. คนที่ 4 (ภาพ 5 เดิม + วิดีโอ 5 เดิม)
+        { i: 'https://res.cloudinary.com/dl5s23mrx/image/upload/q_auto,f_auto/v1775641748/person_4_dmpxwj.png', v: 'https://res.cloudinary.com/dl5s23mrx/video/upload/v1775631683/Man_receives_water__202604081358_vptyar.mp4' },
+        // 5. คนที่ 5 (ภาพ 4 เดิม + วิดีโอ 4 เดิม)
+        { i: 'https://res.cloudinary.com/dl5s23mrx/image/upload/q_auto,f_auto/v1775641748/person_4_dmpxwj.png', v: 'https://res.cloudinary.com/dl5s23mrx/video/upload/v1775636857/Woman_receiving_water_202604081527_kabv6t.mp4' }
     ];
 
     const wishList = [
@@ -99,21 +88,12 @@
     ];
 
     let idx = 0;
-
     function changePage(n) {
-        if(n === 2) {
-            document.getElementById('bgMusic').play().catch(e => {});
-        }
+        if(n === 2) document.getElementById('bgMusic').play().catch(e => {});
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById('page' + n).classList.add('active');
     }
-
-    function startFlow() {
-        idx = 0;
-        updateContent();
-        changePage(3);
-    }
-
+    function startFlow() { idx = 0; updateContent(); changePage(3); }
     function updateContent() {
         document.getElementById('bossPic').src = dataList[idx].i;
         document.getElementById('vdoSrc').src = dataList[idx].v;
@@ -123,7 +103,6 @@
         document.getElementById('nextAction').style.display = 'none';
         document.getElementById('blessText').style.display = 'none';
     }
-
     function playVdo() {
         document.getElementById('stillPhase').style.display = 'none';
         document.getElementById('vdoPhase').style.display = 'flex';
@@ -137,14 +116,8 @@
             document.getElementById('btnNext').innerText = (idx === dataList.length - 1) ? "จบพิธี (กลับหน้าแรก)" : "ไปท่านถัดไป >";
         };
     }
-
     function nextStep() {
-        if(idx < dataList.length - 1) {
-            idx++;
-            updateContent();
-        } else {
-            location.reload();
-        }
+        if(idx < dataList.length - 1) { idx++; updateContent(); } else { location.reload(); }
     }
 </script>
 </body>
